@@ -12,7 +12,7 @@
 /* ********************************************* */
 /* globale variabelen die je gebruikt in je game */
 /* ********************************************* */
-var x;
+var xPositions;
 var y;
 var speedX;
 var speedY;
@@ -34,8 +34,8 @@ function setup() {
   createCanvas(1280, 720);
 
   // initialiseer waarden
-  x = width / 2;               // midden van de breedte van het canvas
-  y = height / 2;              // midden van de hoogte van het canvas
+  xPositions = width / 2;               // midden van de breedte van het canvas
+  yPositions = height / 2;              // midden van de hoogte van het canvas
   speedX = random(-5, 5);      // random waarde tussen -5 en 5
   speedY = random(-5, 5);      // 👆
 }
@@ -52,18 +52,18 @@ function draw() {
   // teken
   noStroke;
   fill(255, 255, 255);
-  rect(x, y, BREEDTE, BREEDTE);
+  rect(xPositions, yPositions, BREEDTE, BREEDTE);
 
   // update positie
-  x = x + speedX;
-  y = y + speedY;
+  xPositions = xPositions + speedX;
+  yPositions = yPositions + speedY;
 
   // stuiter evt. tegen de kanten
-  if (x <= 0 || x + BREEDTE >= width) {
+  if (xPositions <= 0 || xPositions + BREEDTE >= width) {
     speedX = speedX * -1;
   }
 
-  if (y <= 0 || y + BREEDTE >= height) {
+  if (yPositions <= 0 || yPositions + BREEDTE >= height) {
     speedY = speedY * -1;
   }
 
