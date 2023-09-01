@@ -12,10 +12,10 @@
 /* ********************************************* */
 /* globale variabelen die je gebruikt in je game */
 /* ********************************************* */
-var xPositions;
-var yPositions;
-var speedX;
-var speedY;
+var xPositions = [];
+var yPositions = [];
+var speedX = [];
+var speedY = [];
 const BREEDTE = 20;
 
 
@@ -32,11 +32,14 @@ const BREEDTE = 20;
 function setup() {
   // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
   createCanvas(1280, 720);
-  //arrays
-  xPositions = [random(0, 1280-BREEDTE), random(0, 1280-BREEDTE), random(0, 1280-BREEDTE), random(0, 1280-BREEDTE), random(0, 1280-BREEDTE)]
-  yPositions = [random(0, 720-BREEDTE), random(0, 720-BREEDTE), random(0, 720-BREEDTE), random(0, 720-BREEDTE), random(0, 720-BREEDTE)]
-  speedX = [random(-10, 10), random(-20, 20), random(-20, 20), random(-20, 20), random(-20, 20)]
-  speedY = [random(-10, 10), random(-20, 20), random(-20, 20), random(-20, 20), random(-20, 20)]
+
+  var maxXpos = width-BREEDTE
+  for (var i = 0; i < 50; i++) {
+    xPositions.push(random(width-BREEDTE));
+    yPositions.push(random(height-BREEDTE));
+    speedX.push(random(-10,10));
+    speedY.push(random(-10,10));
+  }
 }
 
 /**
