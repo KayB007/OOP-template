@@ -32,11 +32,11 @@ const BREEDTE = 20;
 function setup() {
   // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
   createCanvas(1280, 720);
-
-  xPositions = [random(0, 1280), random(0, 1280), random(0, 1280), random(0, 1280), random(0, 1280)]
-  yPositions = [random(0, 720), random(0, 720), random(0, 720), random(0, 720), random(0, 720)]
-  speedX = [random(-20, 20), random(-20, 20), random(-20, 20), random(-20, 20), random(-20, 20)]
-  speedY = [random(-20, 20), random(-20, 20), random(-20, 20), random(-20, 20), random(-20, 20)]
+  //arrays
+  xPositions = [random(0, 1280-BREEDTE), random(0, 1280-BREEDTE), random(0, 1280-BREEDTE), random(0, 1280-BREEDTE), random(0, 1280-BREEDTE)]
+  yPositions = [random(0, 720-BREEDTE), random(0, 720-BREEDTE), random(0, 720-BREEDTE), random(0, 720-BREEDTE), random(0, 720-BREEDTE)]
+  speedX = [random(-10, 10), random(-20, 20), random(-20, 20), random(-20, 20), random(-20, 20)]
+  speedY = [random(-10, 10), random(-20, 20), random(-20, 20), random(-20, 20), random(-20, 20)]
 }
 
 /**
@@ -47,6 +47,8 @@ function setup() {
 function draw() {
   // zwarte achtergrond
   background(0, 0, 0);
+  
+  //for loop
   for (var i = 0; i < xPositions.length; i++) {
     // teken
     noStroke;
