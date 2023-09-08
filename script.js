@@ -12,12 +12,9 @@
 /* ********************************************* */
 /* globale variabelen die je gebruikt in je game */
 /* ********************************************* */
-// var xPositions = [];
-// var yPositions = [];
-// var speedX = [];
-// var speedY = [];
-var mensen;
+var mensen = [];
 const BREEDTE = 20;
+var aantal = 25;
 
 
 
@@ -34,36 +31,34 @@ function setup() {
   // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
   createCanvas(1280, 720);
 
-  //var maxXpos = width-BREEDTE
-  /*for (var i = 0; i < 20; i++) {
-    xPositions.push(random(width-BREEDTE));
-    yPositions.push(random(height-BREEDTE));
-    speedX.push(random(-10,10));
-    speedY.push(random(-10,10));
-  } */
 
-  mensen = [
-    {
-      x: 100,
-      y: 100,
-      speedX: -2,
-      speedY: 10,
-      update() {
-        this.x = this.x + this.speedX;
-        this.y = this.y + this.speedY;
-      }
-    },
-    {
-      x: 200,
-      y: 200,
-      speedX: 10,
-      speedY: 10,
-      update() {
-        this.x = this.x + this.speedX;
-        this.y = this.y + this.speedY;
-      }
+  class ClassMensen {
+    x;
+    y;
+    speedX;
+    speedY;
+    isBesmet;
+
+    constructor(x, y, speedX, speedY) {
+      this.x = x;
+      this.y = y;
+      this.speedX = speedX;
+      this.speedY = speedY;
+      this.isBesmet = false;
+
     }
-  ];
+
+    update() {
+      this.x = this.x + this.speedX;
+      this.y = this.y + this.speedY;
+    }
+  };
+
+  for (var i = 0; i < aantal; i++) {
+    mensen.push(new ClassMensen(random(0, 1280 - BREEDTE), random(0, 720 - BREEDTE), random(-10, 10), random(-10, 10)))
+  }
+
+  mensen[0].isBesmet = true;
 }
 
 /**
@@ -76,27 +71,8 @@ function draw() {
   background(0, 0, 0);
 
   //for loop
-  /*for (var i = 0; i < xPositions.length; i++) {
-    // teken
-    noStroke;
-    fill(255, 255, 255);
-    rect(xPositions[i], yPositions[i], BREEDTE, BREEDTE);
 
-    // update positie
-    xPositions[i] = xPositions[i] + speedX[i];
-    yPositions[i] = yPositions[i] + speedY[i];
-
-    // stuiter evt. tegen de kanten
-    if (xPositions[i] <= 0 || xPositions[i] + BREEDTE >= width) {
-      speedX[i] = speedX[i] * -1;
-    }
-
-    if (yPositions[i] <= 0 || yPositions[i] + BREEDTE >= height) {
-      speedY[i] = speedY[i] * -1;
-    }
-  }*/
-
-  for (var i = 0; i < mensen.length; i++) {
+  for (var i = 0; i < aantal; i++) {
     // teken
     noStroke;
     fill(255, 255, 255);
