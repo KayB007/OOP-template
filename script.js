@@ -13,9 +13,8 @@
 /* globale variabelen die je gebruikt in je game */
 /* ********************************************* */
 var mensen = [];
-const BREEDTE = 20;
 var aantal = 25;
-
+const BREEDTE = 20;
 
 
 /* ********************************************* */
@@ -37,6 +36,7 @@ function setup() {
     y;
     speedX;
     speedY;
+    breedte;
     isBesmet;
 
     constructor(x, y, speedX, speedY) {
@@ -44,6 +44,7 @@ function setup() {
       this.y = y;
       this.speedX = speedX;
       this.speedY = speedY;
+      this.breedte = 20;
       this.isBesmet = false;
 
     }
@@ -55,30 +56,66 @@ function setup() {
       else {
         fill(255, 255, 255);  // wit
       }
-  
-      rect(this.x, this.y, BREEDTE, BREEDTE);
+
+      rect(this.x, this.y, this.breedte, this.breedte);
     }
+
+    isOverlappend(andereMens) {
+      // zet teruggeefwaarde standaard op false
+      var overlappend = false;
+
+      // zet teruggeefwaarde op true als er een overlap is
+      if (
+        (this.x >= andereMens.x &&
+        this.x <= andereMens.x + andereMens.breedte &&
+        this.y >= andereMens.y &&
+        this.y <= andereMens.y + andereMens.breedte)
+        ||
+        (this.x + this.breedte >= andereMens.x &&
+          this.x + this.breedte <= andereMens.x + andereMens.breedte &&
+          this.y >= andereMens.y &&
+          this.y <= andereMens.y + andereMens.breedte)
+        ||
+        (this.x + this.breedte >= andereMens.x &&
+          this.x + this.breedte <= andereMens.x + andereMens.breedte &&
+          this.y + this.breedte >= andereMens.y &&
+          this.y + this.breedte <= andereMens.y + andereMens.breedte)
+        ||
+        (this.x >= andereMens.x &&
+          this.x <= andereMens.x + andereMens.breedte &&
+          this.y + this.breedte >= andereMens.y &&
+          this.y + this.breedte <= andereMens.y + andereMens.breedte)
+           
+          ) {
+
+        overlappend = true;
+      }
+
+      // stuur de teruggeefwaarde terug
+      return overlappend;
+    }
+
 
     update() {
       this.x = this.x + this.speedX;
       this.y = this.y + this.speedY;
-    
+
       // stuiter evt. tegen de kanten
-     if (this.x <= 0 || this.x + BREEDTE >= width) {
-      this.speedX = this.speedX * -1;
-    }
+      if (this.x <= 0 || this.x + BREEDTE >= width) {
+        this.speedX = this.speedX * -1;
+      }
 
-    if (this.y <= 0 || this.y + BREEDTE >= height) {
-      this.speedY = this.speedY * -1;
+      if (this.y <= 0 || this.y + BREEDTE >= height) {
+        this.speedY = this.speedY * -1;
+      }
     }
-    }
-};
+  };
 
-for (var i = 0; i < aantal; i++) {
-  mensen.push(new ClassMensen(random(0, 1280 - BREEDTE), random(0, 720 - BREEDTE), random(-10, 10), random(-10, 10)))
-}
+  for (var i = 0; i < aantal; i++) {
+    mensen.push(new ClassMensen(random(0, 1280 - BREEDTE), random(0, 720 - BREEDTE), random(-10, 10), random(-10, 10)))
+  }
 
-mensen[0].isBesmet = true;
+  mensen[0].isBesmet = true;
 };
 
 /**
