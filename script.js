@@ -47,19 +47,39 @@ function setup() {
       this.isBesmet = false;
 
     }
+    show() {
+      noStroke();
+      if (this.isBesmet === true) {
+        fill(255, 0, 0);      // rood
+      }
+      else {
+        fill(255, 255, 255);  // wit
+      }
+  
+      rect(this.x, this.y, BREEDTE, BREEDTE);
+    }
 
     update() {
       this.x = this.x + this.speedX;
       this.y = this.y + this.speedY;
+    
+      // stuiter evt. tegen de kanten
+     if (this.x <= 0 || this.x + BREEDTE >= width) {
+      this.speedX = this.speedX * -1;
     }
-  };
 
-  for (var i = 0; i < aantal; i++) {
-    mensen.push(new ClassMensen(random(0, 1280 - BREEDTE), random(0, 720 - BREEDTE), random(-10, 10), random(-10, 10)))
-  }
+    if (this.y <= 0 || this.y + BREEDTE >= height) {
+      this.speedY = this.speedY * -1;
+    }
+    }
+};
 
-  mensen[0].isBesmet = true;
+for (var i = 0; i < aantal; i++) {
+  mensen.push(new ClassMensen(random(0, 1280 - BREEDTE), random(0, 720 - BREEDTE), random(-10, 10), random(-10, 10)))
 }
+
+mensen[0].isBesmet = true;
+};
 
 /**
  * draw
@@ -80,14 +100,5 @@ function draw() {
 
     // update positie
     mensen[i].update();
-
-    // stuiter evt. tegen de kanten
-    if (mensen[i].x <= 0 || mensen[i].x + BREEDTE >= width) {
-      mensen[i].speedX = mensen[i].speedX * -1;
-    }
-
-    if (mensen[i].y <= 0 || mensen[i].y + BREEDTE >= height) {
-      mensen[i].speedY = mensen[i].speedY * -1;
-    }
   }
 }
