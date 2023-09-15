@@ -69,11 +69,11 @@ class Actor {
     this.y = this.y + this.speedY;
 
     // stuiter evt. tegen de kanten
-    if (this.x <= 0 || this.x + BREEDTE >= width) {
+    if (this.x <= 0 || this.x + BREEDTEMENS >= width) {
       this.speedX = this.speedX * -1;
     }
 
-    if (this.y <= 0 || this.y + BREEDTE >= height) {
+    if (this.y <= 0 || this.y + BREEDTEMENS >= height) {
       this.speedY = this.speedY * -1;
     }
   }
@@ -129,9 +129,9 @@ class Kat extends Actor {
 /* ********************************************* */
 var mensen = [];
 var aantalMensen = 25;
-var aantalKatten = 30;
-const BREEDTE = 20;
-
+var aantalKatten = 10;
+var BREEDTEMENS = 20;
+var BREEDTEKAT = 10;
 
 /* ********************************************* */
 /* setup() en draw() functies / hoofdprogramma   */
@@ -147,10 +147,10 @@ function setup() {
   createCanvas(1280, 720);
 
   for (var i = 0; i < aantalMensen; i++) {
-    mensen.push(new Mens(random(0, 1280 - BREEDTE), random(0, 720 - BREEDTE), random(-10, 10), random(-10, 10)))
+    mensen.push(new Mens(random(0, 1280 - BREEDTEMENS), random(0, 720 - BREEDTEMENS), random(-10, 10), random(-10, 10)))
   }
   for (var i = 0; i < aantalKatten; i++) {
-    mensen.push(new Kat(random(0, 1280 - BREEDTE), random(0, 720 - BREEDTE), random(-10, 10), random(-10, 10)))
+    mensen.push(new Kat(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT), random(-10, 10), random(-10, 10)))
   }
 
   mensen[0].isBesmet = true;
