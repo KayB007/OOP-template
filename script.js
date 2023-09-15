@@ -8,7 +8,7 @@
 ///<reference path="p5.global-mode.d.ts" />
 "use strict"
 
-class Mens {
+class Actor {
   x;
   y;
   speedX;
@@ -21,20 +21,11 @@ class Mens {
     this.y = y;
     this.speedX = speedX;
     this.speedY = speedY;
-    this.breedte = 20;
     this.isBesmet = false;
 
   }
   show() {
-    noStroke();
-    if (this.isBesmet === true) {
-      fill(255, 0, 0);      // rood
-    }
-    else {
-      fill(255, 255, 255);  // wit
-    }
-
-    rect(this.x, this.y, this.breedte, this.breedte);
+   
   }
 
   isOverlappend(andereMens) {
@@ -88,6 +79,48 @@ class Mens {
   }
 };
 
+class Mens extends Actor {
+  constructor(x, y, speedX, speedY) {
+    super(x, y, speedX, speedY)
+    this.breedte = 20;
+  }
+
+  show(){
+    super.show();
+
+    noStroke();
+    if (this.isBesmet === true) {
+      fill(255, 0, 0);      // rood
+    }
+    else {
+      fill(255, 255, 255);  // wit
+    }
+
+    rect(this.x, this.y, this.breedte, this.breedte);
+  }
+};
+
+class Kat extends Actor {
+  constructor(x, y, speedX, speedY) {
+    super(x, y, speedX, speedY)
+    this.breedte = 10;
+  }
+
+  show(){
+    super.show();
+
+    noStroke();
+    if (this.isBesmet === true) {
+      fill(255, 165, 0);      // rood
+    }
+    else {
+      fill(0, 0, 255);  // wit
+    }
+
+    rect(this.x, this.y, this.breedte, this.breedte);
+  }
+};
+
 
 
 
@@ -95,7 +128,8 @@ class Mens {
 /* globale variabelen die je gebruikt in je game */
 /* ********************************************* */
 var mensen = [];
-var aantal = 25;
+var aantalMensen = 25;
+var aantalKatten = 30;
 const BREEDTE = 20;
 
 
@@ -112,8 +146,11 @@ function setup() {
   // Maak een canvas (rechthoek) waarin je je speelveld kunt tekenen
   createCanvas(1280, 720);
 
-  for (var i = 0; i < aantal; i++) {
+  for (var i = 0; i < aantalMensen; i++) {
     mensen.push(new Mens(random(0, 1280 - BREEDTE), random(0, 720 - BREEDTE), random(-10, 10), random(-10, 10)))
+  }
+  for (var i = 0; i < aantalKatten; i++) {
+    mensen.push(new Kat(random(0, 1280 - BREEDTE), random(0, 720 - BREEDTE), random(-10, 10), random(-10, 10)))
   }
 
   mensen[0].isBesmet = true;
@@ -130,27 +167,27 @@ function draw() {
   background(0, 0, 0);
 
   //for loop
-// ga alle mensen langs
-for (var i = 0; i < mensen.length; i++) {
-  var mensA = mensen[i];
-  // ga met mensA opnieuw alle mensen langs om te checken op overlap, behalve met zichzelf
-  for (var j = 0; j < mensen.length; j++) {
-    var mensB = mensen[j];
-    if (mensA != mensB) {
-      // check overlap
-      var mensenOverlappen = mensA.isOverlappend(mensB);
-      if (mensenOverlappen) {
-        // check of er een besmetting optreedt
-        if (mensA.isBesmet || mensB.isBesmet) {
-          // als er één besmet is, wordt ze allebei besmet
-          // als ze allebei besmet zijn, verandert deze code niets.
-          mensA.isBesmet = true;
-          mensB.isBesmet = true;
+  // ga alle mensen langs
+  for (var i = 0; i < mensen.length; i++) {
+    var mensA = mensen[i];
+    // ga met mensA opnieuw alle mensen langs om te checken op overlap, behalve met zichzelf
+    for (var j = 0; j < mensen.length; j++) {
+      var mensB = mensen[j];
+      if (mensA != mensB) {
+        // check overlap
+        var mensenOverlappen = mensA.isOverlappend(mensB);
+        if (mensenOverlappen) {
+          // check of er een besmetting optreedt
+          if (mensA.isBesmet || mensB.isBesmet) {
+            // als er één besmet is, wordt ze allebei besmet
+            // als ze allebei besmet zijn, verandert deze code niets.
+            mensA.isBesmet = true;
+            mensB.isBesmet = true;
+          }
         }
       }
     }
   }
-}
 
 
   for (var i = 0; i < mensen.length; i++) {
