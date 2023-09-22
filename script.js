@@ -25,7 +25,7 @@ class Actor {
 
   }
   show() {
-   
+
   }
 
   isOverlappend(andereMens) {
@@ -85,7 +85,7 @@ class Mens extends Actor {
     this.breedte = 20;
   }
 
-  show(){
+  show() {
     super.show();
 
     noStroke();
@@ -100,13 +100,34 @@ class Mens extends Actor {
   }
 };
 
+class Dokter extends Mens {
+  constructor(x, y, speedX, speedY) {
+    super(x, y, speedX, speedY);
+  }
+
+  show() {
+    super.show();
+
+    strokeWeight(5);
+    stroke(255, 0, 0);
+    line(this.x + this.breedte / 2, this.y,
+    this.x + this.breedte / 2, this.y + this.breedte);
+    line(this.x, this.y + this.breedte / 2,
+    this.x + this.breedte, this.y + this.breedte / 2);
+  }
+  besmettingsfout 
+  if(isBesmet === true){
+    isBesmet = false;
+  }
+};
+
 class Kat extends Actor {
   constructor(x, y, speedX, speedY) {
     super(x, y, speedX, speedY)
     this.breedte = 10;
   }
 
-  show(){
+  show() {
     super.show();
 
     noStroke();
@@ -130,6 +151,7 @@ class Kat extends Actor {
 var mensen = [];
 var aantalMensen = 25;
 var aantalKatten = 10;
+var aantalDoktoren = 5;
 var BREEDTEMENS = 20;
 var BREEDTEKAT = 10;
 
@@ -151,6 +173,9 @@ function setup() {
   }
   for (var i = 0; i < aantalKatten; i++) {
     mensen.push(new Kat(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT), random(-10, 10), random(-10, 10)))
+  }
+  for (var i = 0; i < aantalDoktoren; i++) {
+    mensen.push(new Dokter(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT), random(-10, 10), random(-10, 10)))
   }
 
   mensen[0].isBesmet = true;
