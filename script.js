@@ -14,18 +14,32 @@ class Actor {
   speedX;
   speedY;
   breedte;
-  isBesmet;
+  #isBesmet;
 
   constructor(x, y, speedX, speedY) {
     this.x = x;
     this.y = y;
     this.speedX = speedX;
     this.speedY = speedY;
-    this.isBesmet = false;
+    this.#isBesmet = false;
 
   }
+
+  getIsBesmet() {
+    return this.#isBesmet;
+  }
+
+  setIsBesmet(besmetting) {
+    this.#isBesmet = besmetting;
+  }
+
+
   show() {
 
+  }
+
+  besmettingsfout(){
+  
   }
 
   isOverlappend(andereMens) {
@@ -63,7 +77,6 @@ class Actor {
     return overlappend;
   }
 
-
   update() {
     this.x = this.x + this.speedX;
     this.y = this.y + this.speedY;
@@ -89,7 +102,7 @@ class Mens extends Actor {
     super.show();
 
     noStroke();
-    if (this.isBesmet === true) {
+    if (this.getIsBesmet() === true) {
       fill(255, 0, 0);      // rood
     }
     else {
@@ -105,20 +118,21 @@ class Dokter extends Mens {
     super(x, y, speedX, speedY);
   }
 
+  setIsBesmet(besmetting) {
+    super.setIsBesmet(false);
+  }
+
   show() {
     super.show();
 
     strokeWeight(5);
     stroke(255, 0, 0);
     line(this.x + this.breedte / 2, this.y,
-    this.x + this.breedte / 2, this.y + this.breedte);
+      this.x + this.breedte / 2, this.y + this.breedte);
     line(this.x, this.y + this.breedte / 2,
-    this.x + this.breedte, this.y + this.breedte / 2);
+      this.x + this.breedte, this.y + this.breedte / 2);
   }
-  besmettingsfout 
-  if(isBesmet === true){
-    isBesmet = false;
-  }
+
 };
 
 class Kat extends Actor {
@@ -131,7 +145,7 @@ class Kat extends Actor {
     super.show();
 
     noStroke();
-    if (this.isBesmet === true) {
+    if (getisBesmet === true) {
       fill(255, 165, 0);      // rood
     }
     else {
@@ -221,5 +235,7 @@ function draw() {
 
     // update positie
     mensen[i].update();
+
+    mensen[i].besmettingsfout();
   }
 }
