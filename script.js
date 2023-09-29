@@ -38,9 +38,6 @@ class Actor {
 
   }
 
-  besmettingsfout(){
-  
-  }
 
   isOverlappend(andereMens) {
     // zet teruggeefwaarde standaard op false
@@ -145,8 +142,8 @@ class Kat extends Actor {
     super.show();
 
     noStroke();
-    if (getisBesmet === true) {
-      fill(255, 165, 0);      // rood
+    if (this.getIsBesmet(true)) {
+      fill(255, 165, 0);      // oranje
     }
     else {
       fill(0, 0, 255);  // wit
@@ -165,7 +162,7 @@ class Kat extends Actor {
 var mensen = [];
 var aantalMensen = 25;
 var aantalKatten = 10;
-var aantalDoktoren = 5;
+var aantalDoktoren = 10;
 var BREEDTEMENS = 20;
 var BREEDTEKAT = 10;
 
@@ -183,16 +180,16 @@ function setup() {
   createCanvas(1280, 720);
 
   for (var i = 0; i < aantalMensen; i++) {
-    mensen.push(new Mens(random(0, 1280 - BREEDTEMENS), random(0, 720 - BREEDTEMENS), random(-10, 10), random(-10, 10)))
+    mensen.push(new Mens(random(0, 1280 - BREEDTEMENS), random(0, 720 - BREEDTEMENS), random(-5, 5),  random(-5, 5)))
   }
   for (var i = 0; i < aantalKatten; i++) {
-    mensen.push(new Kat(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT), random(-10, 10), random(-10, 10)))
+    mensen.push(new Kat(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT),  random(-5, 5),  random(-5, 5)))
   }
   for (var i = 0; i < aantalDoktoren; i++) {
-    mensen.push(new Dokter(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT), random(-10, 10), random(-10, 10)))
+    mensen.push(new Dokter(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT),  random(-5, 5),  random(-5, 5)))
   }
 
-  mensen[0].isBesmet = true;
+  mensen[0].setIsBesmet(true);
 };
 
 
@@ -217,11 +214,20 @@ function draw() {
         var mensenOverlappen = mensA.isOverlappend(mensB);
         if (mensenOverlappen) {
           // check of er een besmetting optreedt
-          if (mensA.isBesmet || mensB.isBesmet) {
-            // als er één besmet is, wordt ze allebei besmet
-            // als ze allebei besmet zijn, verandert deze code niets.
-            mensA.isBesmet = true;
-            mensB.isBesmet = true;
+          if (mensA.getIsBesmet() || mensB.getIsBesmet()) {
+            if (mensA instanceof Dokter || mensB instanceof Dokter) {
+              // minimaal één van de mensen is dokter,
+              // dus ze worden / blijven beide gezond
+              mensA.setIsBesmet(false)
+              mensB.setIsBesmet(false)
+            }
+            else {
+              // geen van de mensen is dokter, dus
+              // als er één besmet is, wordt ze allebei besmet
+              // als ze allebei besmet zijn, verandert deze code niets.
+              mensA.setIsBesmet(true)
+              mensB.setIsBesmet(true)
+            }
           }
         }
       }
@@ -236,6 +242,7 @@ function draw() {
     // update positie
     mensen[i].update();
 
-    mensen[i].besmettingsfout();
+
   }
 }
+
