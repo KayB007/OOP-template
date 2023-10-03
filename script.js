@@ -79,13 +79,7 @@ class Actor {
     this.y = this.y + this.speedY;
 
     // stuiter evt. tegen de kanten
-    if (this.x <= 0 || this.x + BREEDTEMENS >= width) {
-      this.speedX = this.speedX * -1;
-    }
 
-    if (this.y <= 0 || this.y + BREEDTEMENS >= height) {
-      this.speedY = this.speedY * -1;
-    }
   }
 };
 
@@ -93,6 +87,17 @@ class Mens extends Actor {
   constructor(x, y, speedX, speedY) {
     super(x, y, speedX, speedY)
     this.breedte = 20;
+  }
+
+  update() {
+    super.update();
+    if (this.x <= 0 || this.x + BREEDTEMENS >= width) {
+      this.speedX = this.speedX * -1;
+    }
+
+    if (this.y <= 0 || this.y + BREEDTEMENS >= height) {
+      this.speedY = this.speedY * -1;
+    }
   }
 
   show() {
@@ -138,6 +143,17 @@ class Kat extends Actor {
     this.breedte = 10;
   }
 
+  update() {
+    super.update();
+    if (this.x <= 0 || this.x + BREEDTEKAT >= width) {
+      this.speedX = this.speedX * -1;
+    }
+
+    if (this.y <= 0 || this.y + BREEDTEKAT >= height) {
+      this.speedY = this.speedY * -1;
+    }
+  }
+
   show() {
     super.show();
 
@@ -161,10 +177,11 @@ class Kat extends Actor {
 /* ********************************************* */
 var mensen = [];
 var aantalMensen = 25;
-var aantalKatten = 10;
-var aantalDoktoren = 10;
+var aantalKatten = 8;
+var aantalDoktoren = 15;
 var BREEDTEMENS = 20;
 var BREEDTEKAT = 10;
+var beginBESMET = 5;
 
 /* ********************************************* */
 /* setup() en draw() functies / hoofdprogramma   */
@@ -180,16 +197,18 @@ function setup() {
   createCanvas(1280, 720);
 
   for (var i = 0; i < aantalMensen; i++) {
-    mensen.push(new Mens(random(0, 1280 - BREEDTEMENS), random(0, 720 - BREEDTEMENS), random(-5, 5),  random(-5, 5)))
+    mensen.push(new Mens(random(0, 1280 - BREEDTEMENS), random(0, 720 - BREEDTEMENS), random(-5, 5), random(-5, 5)))
   }
   for (var i = 0; i < aantalKatten; i++) {
-    mensen.push(new Kat(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT),  random(-5, 5),  random(-5, 5)))
+    mensen.push(new Kat(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT), random(-5, 5), random(-5, 5)))
   }
   for (var i = 0; i < aantalDoktoren; i++) {
-    mensen.push(new Dokter(random(0, 1280 - BREEDTEKAT), random(0, 720 - BREEDTEKAT),  random(-5, 5),  random(-5, 5)))
+    mensen.push(new Dokter(random(0, 1280 - BREEDTEMENS), random(0, 720 - BREEDTEMENS), random(-5, 5), random(-5, 5)))
   }
 
-  mensen[0].setIsBesmet(true);
+  for (var i = 0; i < beginBESMET; i++) {
+    mensen[i].setIsBesmet(true)
+  };
 };
 
 
