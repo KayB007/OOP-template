@@ -86,7 +86,7 @@ class Actor {
 class Mens extends Actor {
   constructor(x, y, speedX, speedY) {
     super(x, y, speedX, speedY)
-    this.breedte = 20;
+    this.breedte = BREEDTEMENS;
   }
 
   update() {
@@ -176,9 +176,9 @@ class Kat extends Actor {
 /* globale variabelen die je gebruikt in je game */
 /* ********************************************* */
 var mensen = [];
-var aantalMensen = 25;
-var aantalKatten = 8;
-var aantalDoktoren = 15;
+var aantalMensen = 55;
+var aantalKatten = 20;
+var aantalDoktoren = 18;
 var BREEDTEMENS = 20;
 var BREEDTEKAT = 10;
 var beginBESMET = 5;
